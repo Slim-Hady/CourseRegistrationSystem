@@ -1,10 +1,14 @@
 import java.sql.*;
 
 public class DBConnection {
+    static String host = "jdbc:mysql://127.0.0.1:3306";
+    static String username = "root";
+    static String password = "3050417";
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(host, username, password);
+    }
     public static void main(String[] args) {
-        String host = "jdbc:mysql://127.0.0.1:3306";
-        String username = "root";
-        String password = "3050417";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(host, username, password);
@@ -16,5 +20,7 @@ public class DBConnection {
             System.out.println("Failed to load JDBC driver");
             e.printStackTrace();
         }
+
     }
+
 }
