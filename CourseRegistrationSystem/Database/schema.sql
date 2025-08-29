@@ -1,5 +1,3 @@
-CREATE DATABASE CourseRegistrationSystem;
-
 CREATE TABLE Users (     
     id INT PRIMARY KEY,     
     username VARCHAR(50) UNIQUE NOT NULL,     
