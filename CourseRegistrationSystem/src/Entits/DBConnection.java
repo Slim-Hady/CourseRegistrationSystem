@@ -1,3 +1,6 @@
+package Entits;
+import Interfaces.*;
+
 import java.sql.*;
 
 public class DBConnection {

@@ -1,3 +1,6 @@
+package Entits;
+import Interfaces.*;
+
 public class Admin extends User{
       
     public void AddCourses(){

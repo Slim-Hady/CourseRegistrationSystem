@@ -1,3 +1,8 @@
+package Service;
+import Reposatory.*;
+import Interfaces.*;
+import Entits.*;
+
 public class UserService {
     private IUserRepository  UserRepo;
 
@@ -30,5 +35,12 @@ public class UserService {
 
     public User FindUser(int id){
         return UserRepo.getUserByID(id);
+    }
+    public void UpdateUser(User user){
+        UserRepo.updateUser(user);
+    }
+    public void DeleteUser(int id){
+        UserRepo.deleteUser(id);
+        return;
     }
 }

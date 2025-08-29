@@ -1,3 +1,6 @@
+package Entits;
+import Interfaces.*;
+
 public class ReportGenrator {
       public String CourseReport(){
           String str= " Rrport";

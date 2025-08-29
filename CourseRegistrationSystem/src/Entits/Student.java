@@ -1,3 +1,6 @@
+package Entits;
+import Interfaces.*;
+
 public class Student extends User{
       private String Email;
       private double Payment;

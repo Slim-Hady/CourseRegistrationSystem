@@ -1,3 +1,8 @@
+package Reposatory;
+import Interfaces.*;
+import Entits.*;
+import java.sql.*;
+
 import java.sql.*;
 /*
 UserRepository class is to DB connection that Validate log in with SELCETing u
@@ -79,5 +84,49 @@ public class UserRepository implements IUserRepository {
             e.printStackTrace();
         }
         return null;
+    }
+    public void updateUser(User user) {
+        String sql = "UPDATE Users SET username = ?, password = ?, role = ? WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
+            stmt.setInt(4, user.getID());
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("User updated successfully!");
+            } else {
+                System.out.println("User with ID " + user.getID() + " not found.");
+            }
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("Cannot update: Username or ID already exists for another user.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(int ID) {
+        String sql = "DELETE FROM Users WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, ID);
+            int rows = stmt.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("User deleted successfully");
+            } else {
+                System.out.println("No user found with ID: " + ID);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

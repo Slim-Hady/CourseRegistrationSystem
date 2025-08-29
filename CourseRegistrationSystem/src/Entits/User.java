@@ -1,3 +1,6 @@
+package Entits;
+import Interfaces.*;
+
 public class User {
       protected String username;
       protected String password;
