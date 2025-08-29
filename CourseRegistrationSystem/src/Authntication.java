@@ -1,10 +1,10 @@
 public class Authntication  {
       private  IUserRepository UserRepo;
 
-      public User login(){
-
-      }
+//      public User login(){
+//            return
+//      }
       public boolean signup(){
-
+            return true;
       }
 }
