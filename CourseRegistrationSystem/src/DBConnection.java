@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class DBConnection {
-    static String host = "jdbc:mysql://127.0.0.1:3306";
+    static String host = "jdbc:mysql://127.0.0.1:3306/CourseRegistrationSystem";
     static String username = "root";
     static String password = "3050417";
 

@@ -1,3 +1,5 @@
+CREATE DATABASE CourseRegistrationSystem;
+
 CREATE TABLE Users (     
     id INT PRIMARY KEY,     
     username VARCHAR(50) UNIQUE NOT NULL,     
@@ -29,3 +31,4 @@ CREATE TABLE Enrollment (
     FOREIGN KEY (course_id) REFERENCES Courses(course_id)
 );
 INSERT INTO Users (id, username, password, role) VALUES (12345, 'admin', 'admin', 'admin');
+
