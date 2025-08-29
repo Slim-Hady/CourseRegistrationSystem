@@ -3,7 +3,7 @@ import java.sql.*;
 UserRepository class is to DB connection that Validate log in with SELCETing u
 username and password from database
  */
-public class UserRepository {
+public class UserRepository implements IUserRepository {
     public boolean login(String username, String password) {
         String sql = "SELECT * FROM Users WHERE username = ? AND password = ?";
         // ? will change it with stmt
@@ -30,7 +30,7 @@ public class UserRepository {
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getRole());
             stmt.executeUpdate();
-            System.out.println("✅ User added successfully!");
+            System.out.println("User added successfully!");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,6 +42,28 @@ public class UserRepository {
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
             stmt.setInt(1, ID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public User getUserByUsername(String username){
+        String sql = "SELECT * FROM Users WHERE username = ?";
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setString(1, username);
 
             ResultSet rs = stmt.executeQuery();
 

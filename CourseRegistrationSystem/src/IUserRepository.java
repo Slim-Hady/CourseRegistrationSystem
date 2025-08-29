@@ -1,5 +1,8 @@
 public interface IUserRepository {
-    User findById(String id);
-    void save(User user);
-    void delete(String id);
+    boolean login(String username, String password);
+    void adduser(User user);
+    User getUserByID(int ID);
+    User getUserByUsername(String username);
+
+
 }
