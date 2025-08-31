@@ -1,32 +1,42 @@
 package Entits;
-import Interfaces.*;
 
-public class Student extends User{
-      private String Email;
-      private double Payment;
+public class Student extends User {
+    private String email;
+    private double payment;
+    public Student() {
+    }
 
-      public String getEmail() {
-        return Email;
-      }
 
-      public void setEmail(String email) {
-        Email = email;
-      }
+    public Student(int id, String username, String password, String role, String email, double payment) {
+        super(id, username, password, role);
+        this.email = email;
+        this.payment = payment;
+    }
 
-      public double getPayment() {
-        return Payment;
-      }
+    public String getEmail() {
+        return email;
+    }
 
-      public void setPayment(double payment) {
-        Payment = payment;
-      }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-      public void veiwdetails(){
-        System.out.println("Student ID: " + this.ID);
-        System.out.println("Student Name: " + this.username);
-        System.out.println("Student Password: " + this.password);
-        System.out.println("Student Email: " + this.Email);
-        System.out.println("Student Payment: " + this.Payment);
-      }
+    public double getPayment() {
+        return payment;
+    }
 
+    public void setPayment(double payment) {
+        this.payment = payment;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + getID() +
+                ", username='" + getUsername() + '\'' +
+                ", role='" + getRole() + '\'' +
+                ", email='" + email + '\'' +
+                ", payment=" + payment +
+                '}';
+    }
 }

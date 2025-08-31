@@ -2,6 +2,8 @@ package Reposatory;
 import Interfaces.*;
 import Entits.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseRepository implements ICourseRepository {
 
@@ -43,6 +45,29 @@ public class CourseRepository implements ICourseRepository {
         }
         return null;
     }
+
+    @Override
+    public ArrayList<Course> getAllCourses() {
+        ArrayList<Course> courses = new ArrayList<>();
+        String sql = "SELECT * FROM Courses";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                courses.add(new Course(
+                        rs.getInt("course_id"),
+                        rs.getString("name"),
+                        rs.getString("dr_name"),
+                        rs.getInt("hours"),
+                        rs.getDate("date")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+
 
     @Override
     public void updateCourse(Course course) {

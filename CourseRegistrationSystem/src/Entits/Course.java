@@ -1,5 +1,4 @@
 package Entits;
-import Interfaces.*;
 
 import java.sql.Date;
 
@@ -9,7 +8,7 @@ public class Course {
     private Date courseDate;
     private int hours;
     private String name;
-
+    public Course() {}
     public Course(int courseId, String name, String drName, int hours, Date courseDate) {
         this.courseId = courseId;
         this.name = name;

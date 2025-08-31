@@ -1,9 +1,8 @@
 package Service;
-import Reposatory.*;
-import Interfaces.*;
-import Entits.*;
 
-import java.sql.*;
+import Entits.Course;
+import Interfaces.ICourseRepository;
+import java.util.List;
 
 public class CourseService {
     private ICourseRepository courseRepo;
@@ -14,7 +13,7 @@ public class CourseService {
 
     public void addCourse(Course course) {
         if (courseRepo.getCourseById(course.getCourseId()) != null) {
-            System.out.println("⚠️ Course ID already exists!");
+            System.out.println("Course ID already exists!");
             return;
         }
         courseRepo.addCourse(course);
@@ -24,11 +23,15 @@ public class CourseService {
         return courseRepo.getCourseById(courseId);
     }
 
-    public void updateCourse(Course course) {
+    public List<Course> getAllCourses() {
+        return courseRepo.getAllCourses();
+    }
+
+    public void modifyCourse(Course course) {
         courseRepo.updateCourse(course);
     }
 
-    public void deleteCourse(int courseId) {
+    public void removeCourse(int courseId) {
         courseRepo.deleteCourse(courseId);
     }
 }

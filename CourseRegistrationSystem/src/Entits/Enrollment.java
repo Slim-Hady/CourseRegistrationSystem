@@ -1,35 +1,34 @@
 package Entits;
-import Interfaces.*;
 
 public class Enrollment {
-     private String StudentID;
-     private String CourseID;
-     private boolean status; // Drop or Enroll
+    private int studentId;
+    private int courseId;
+    private boolean status; // Drop or not 
 
-    public Enrollment(String studentID, String courseID, boolean status) {
-        StudentID = studentID;
-        CourseID = courseID;
+    public Enrollment(int studentId, int courseId, boolean status) {
+        this.studentId = studentId;
+        this.courseId = courseId;
         this.status = status;
     }
 
-    public String getStudentID() {
-        return StudentID;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public String getCourseID() {
-        return CourseID;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public boolean isStatus() {
         return status;
-    }
-
-    public void setStudentID(String studentID) {
-        StudentID = studentID;
-    }
-
-    public void setCourseID(String courseID) {
-        CourseID = courseID;
     }
 
     public void setStatus(boolean status) {
@@ -38,11 +37,6 @@ public class Enrollment {
 
     @Override
     public String toString() {
-        return "Enrollment{" +
-                "StudentID='" + StudentID + '\'' +
-                ", CourseID='" + CourseID + '\'' +
-                ", status=" + status +
-                '}';
+        return "Enrollment{studentId=" + studentId + ", courseId=" + courseId + ", status=" + status + "}";
     }
-
 }
