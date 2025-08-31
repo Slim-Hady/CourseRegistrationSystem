@@ -26,7 +26,8 @@
                       │   │       ├── Reposatory/
                       │   │       │   ├── CourseRepository.java
                       │   │       │   ├── EnrollmentRepository.java
-                      │   │       │   └── UserRepository.java
+                      │   │       │   ├── UserRepository.java
+                      |   |       |   └── AuthRepository.java
                       │   │       └── Service/
                       │   │           ├── CourseService.java
                       │   │           └── UserService.java
