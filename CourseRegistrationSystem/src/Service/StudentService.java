@@ -7,7 +7,6 @@ import Entits.Student;
 import Interfaces.IStudentRepository;
 import Reposatory.CourseRepository;
 import Reposatory.EnrollmentRepository;
-import Reposatory.StudentRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,10 +89,10 @@ public class StudentService {
     private void addCourse(int studentId) {
         System.out.println("\n=== ADD COURSE ===");
         viewAvailableCourses();
-        
+
         System.out.print("Enter Course ID to enroll: ");
         int courseId = Integer.parseInt(scanner.nextLine());
-        
+
         Course course = courseRepo.getCourseById(courseId);
         if (course == null) {
             System.out.println("Course not found!");
@@ -104,48 +103,62 @@ public class StudentService {
             System.out.println("You are already enrolled in this course!");
             return;
         }
+
+        if (!ensureStudentExists(studentId)) {
+            System.out.println(" Cannot create student record. Please contact administrator.");
+            return;
+        }
+
+        // Now try to enroll
         try {
             Enrollment enrollment = new Enrollment(studentId, courseId, true);
             enrollmentRepo.enrollStudent(enrollment);
             System.out.println("Successfully enrolled in " + course.getName());
         } catch (Exception e) {
-            if (e.getMessage().contains("foreign key constraint fails")) {
-                System.out.println("Enrollment failed: Student record not found in Students table.");
-                System.out.println("Attempting to fix this automatically...");
-                if (fixMissingStudentRecord(studentId)) {
-                    System.out.println("Student record fixed! Now trying to enroll again...");
-                    try {
-                        Enrollment enrollment = new Enrollment(studentId, courseId, true);
-                        enrollmentRepo.enrollStudent(enrollment);
-                        System.out.println("Successfully enrolled in " + course.getName());
-                    } catch (Exception e2) {
-                        System.out.println("Still cannot enroll. Please contact administrator.");
-                    }
-                } else {
-                    System.out.println("Could not fix student record automatically.");
-                    System.out.println("Please contact administrator for assistance.");
-                }
-            } else {
-                System.out.println("Error enrolling in course: " + e.getMessage());
-            }
+            System.out.println("Error enrolling in course: " + e.getMessage());
         }
     }
-    private boolean fixMissingStudentRecord(int studentId) {
+    private boolean ensureStudentExists(int studentId) {
         try {
-            String sql = "SELECT username FROM Users WHERE id = ?";
+            String checkSql = "SELECT id FROM Students WHERE id = ?";
             try (Connection conn = DBConnection.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+                 PreparedStatement stmt = conn.prepareStatement(checkSql)) {
                 stmt.setInt(1, studentId);
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
+                    return true;
+                }
+            }
+            
+            String userSql = "SELECT username FROM Users WHERE id = ?";
+            String insertSql = "INSERT INTO Students (id, email, payment) VALUES (?, ?, ?)";
+            
+            try (Connection conn = DBConnection.getConnection();
+                 PreparedStatement userStmt = conn.prepareStatement(userSql);
+                 PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                
+                userStmt.setInt(1, studentId);
+                ResultSet rs = userStmt.executeQuery();
+                
+                if (rs.next()) {
                     String username = rs.getString("username");
-                    return ((StudentRepository) studentRepo).fixMissingStudentRecord(studentId, username);
+                    
+                    insertStmt.setInt(1, studentId);
+                    insertStmt.setString(2, username + "@email.com");
+                    insertStmt.setDouble(3, 0.0);
+                    insertStmt.executeUpdate();
+                    
+                    System.out.println(" Created missing student record for user ID: " + studentId);
+                    return true;
+                } else {
+                    System.out.println("User not found in Users table");
+                    return false;
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error fixing student record: " + e.getMessage());
+            System.out.println(" Error ensuring student exists: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     private void dropCourse(int studentId) {
@@ -157,12 +170,12 @@ public class StudentService {
         
         Enrollment enrollment = enrollmentRepo.getEnrollment(studentId, courseId);
         if (enrollment == null) {
-            System.out.println("You are not enrolled in this course!");
+            System.out.println(" You are not enrolled in this course!");
             return;
         }
         
         enrollmentRepo.deleteEnrollment(studentId, courseId);
-        System.out.println("Successfully dropped the course");
+        System.out.println(" Successfully dropped the course");
     }
 
     private void viewMyEnrollments(int studentId) {
