@@ -1,57 +1,57 @@
 # CourseRegistrationSystem
 
-CourseRegistrationSystem/
-├── src/
-│   ├── Entits/
-│   │   ├── Admin.java
-│   │   ├── Authntication.java
-│   │   ├── Course.java
-│   │   ├── DBConnection.java
-│   │   ├── Enrollment.java
-│   │   ├── Graph.java
-│   │   ├── Main.java
-│   │   ├── ReportGenrator.java
-│   │   ├── Student.java
-│   │   ├── Toplogicalsort.java
-│   │   └── User.java
-│   │
-│   ├── Interfaces/
-│   │   ├── IAdminService.java
-│   │   ├── IAuth.java
-│   │   ├── ICourseRepository.java
-│   │   ├── ICourseService.java
-│   │   ├── IEnrollment.java
-│   │   ├── IEnrollmentRepository.java
-│   │   ├── IEnrollmentService.java
-│   │   ├── IReportGenerator.java
-│   │   ├── IReportGenrator.java
-│   │   ├── IStudentRepository.java
-│   │   ├── IStudentService.java
-│   │   └── IUserRepository.java
-│   │
-│   ├── Reposatory/
-│   │   ├── AdminRepository.java
-│   │   ├── AuthRepository.java
-│   │   ├── CourseRepository.java
-│   │   ├── EnrollmentRepository.java
-│   │   ├── ReportRepository.java
-│   │   ├── ReportRepositoryR.java
-│   │   ├── StudentRepository.java
-│   │   └── UserRepository.java
-│   │
-│   └── Service/
-│       ├── AdminService.java
-│       ├── AuthService.java
-│       ├── CourseService.java
-│       ├── EnrollmentService.java
-│       ├── ReportService.java
-│       ├── StudentService.java
-│       └── UserService.java
-│
-├── Database/
-│   └── schema.sql
-│
-├── mysql-connectojdbcr-j-9.4.0/
+    CourseRegistrationSystem/
+    ├── src/
+    │   ├── Entits/
+    │   │   ├── Admin.java
+    │   │   ├── Authntication.java
+    │   │   ├── Course.java
+    │   │   ├── DBConnection.java
+    │   │   ├── Enrollment.java
+    │   │   ├── Graph.java
+    │   │   ├── Main.java
+    │   │   ├── ReportGenrator.java
+    │   │   ├── Student.java
+    │   │   ├── Toplogicalsort.java
+    │   │   └── User.java
+    │   │
+    │   ├── Interfaces/
+    │   │   ├── IAdminService.java
+    │   │   ├── IAuth.java
+    │   │   ├── ICourseRepository.java
+    │   │   ├── ICourseService.java
+    │   │   ├── IEnrollment.java
+    │   │   ├── IEnrollmentRepository.java
+    │   │   ├── IEnrollmentService.java
+    │   │   ├── IReportGenerator.java
+    │   │   ├── IReportGenrator.java
+    │   │   ├── IStudentRepository.java
+    │   │   ├── IStudentService.java
+    │   │   └── IUserRepository.java
+    │   │
+    │   ├── Reposatory/
+    │   │   ├── AdminRepository.java
+    │   │   ├── AuthRepository.java
+    │   │   ├── CourseRepository.java
+    │   │   ├── EnrollmentRepository.java
+    │   │   ├── ReportRepository.java
+    │   │   ├── ReportRepositoryR.java
+    │   │   ├── StudentRepository.java
+    │   │   └── UserRepository.java
+    │   │
+    │   └── Service/
+    │       ├── AdminService.java
+    │       ├── AuthService.java
+    │       ├── CourseService.java
+    │       ├── EnrollmentService.java
+    │       ├── ReportService.java
+    │       ├── StudentService.java
+    │       └── UserService.java
+    │
+    ├── Database/
+    │   └── schema.sql
+    │
+    ├── mysql-connectojdbcr-j-9.4.0/
 
 
 # Use case diagrame : 
