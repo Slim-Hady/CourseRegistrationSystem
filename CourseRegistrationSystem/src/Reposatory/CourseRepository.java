@@ -1,9 +1,12 @@
 package Reposatory;
-import Interfaces.*;
-import Entits.*;
-import java.sql.*;
+import Entits.Course;
+import Entits.DBConnection;
+import Interfaces.ICourseRepository;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CourseRepository implements ICourseRepository {
 
@@ -18,7 +21,7 @@ public class CourseRepository implements ICourseRepository {
             stmt.setInt(4, course.getHours());
             stmt.setDate(5, course.getCourseDate());
             stmt.executeUpdate();
-            System.out.println("✅ Course added successfully!");
+            System.out.println("Course added successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,8 +83,8 @@ public class CourseRepository implements ICourseRepository {
             stmt.setDate(4, course.getCourseDate());
             stmt.setInt(5, course.getCourseId());
             int rows = stmt.executeUpdate();
-            if (rows > 0) System.out.println("✅ Course updated successfully!");
-            else System.out.println("⚠️ Course not found!");
+            if (rows > 0) System.out.println("Course updated successfully!");
+            else System.out.println("⚠Course not found!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,8 +97,8 @@ public class CourseRepository implements ICourseRepository {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, courseId);
             int rows = stmt.executeUpdate();
-            if (rows > 0) System.out.println("🗑️ Course deleted successfully!");
-            else System.out.println("⚠️ Course not found!");
+            if (rows > 0) System.out.println("Course deleted successfully!");
+            else System.out.println("Course not found!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,15 +1,8 @@
 package Entits;
-import Interfaces.*;
 
-public class Admin extends User{
-      
-    public void AddCourses(){
-        
-    }
-    public void DleteCourses(){
-        
-    }
-    public void ManageCourses(){
-        
+public class Admin extends User {
+
+    public Admin(int id, String name, String password) {
+        super(id, name, password, "admin");
     }
 }

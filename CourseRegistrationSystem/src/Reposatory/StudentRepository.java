@@ -1,10 +1,13 @@
 package Reposatory;
 
-import Interfaces.IStudentRepository;
-import Entits.Student;
 import Entits.DBConnection;
-
-import java.sql.*;
+import Entits.Student;
+import Interfaces.IStudentRepository;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class StudentRepository implements IStudentRepository {
                 studentStmt.executeUpdate();
 
                 conn.commit();
-                System.out.println("✅ Student added successfully!");
+                System.out.println("Student added successfully!");
 
             } catch (SQLException e) {
                 conn.rollback();
@@ -41,6 +44,21 @@ public class StudentRepository implements IStudentRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public boolean fixMissingStudentRecord(int userId, String username) {
+        String sql = "INSERT INTO Students (id, email, payment) VALUES (?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setString(2, username + "@email.com"); // Default email
+            stmt.setDouble(3, 0.0); // Default payment
+            stmt.executeUpdate();
+            System.out.println("Fixed missing student record for user ID: " + userId);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error fixing student record: " + e.getMessage());
+            return false;
         }
     }
 
