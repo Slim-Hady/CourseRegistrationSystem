@@ -11,7 +11,7 @@ public class Main {
     private static AdminService adminService = new AdminService();
 
     public static void main(String[] args) {
-        System.out.println("Welcome to Course Registration System 🎓");
+        System.out.println("Welcome to Course Registration System ");
         while (true) {
             showMainMenu();
         }
