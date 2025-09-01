@@ -65,7 +65,7 @@
 
 # Tools :
 
-Java - MySQL - JDBC - OOP - SOLID - Design Pattren (DAO) - Graph - topological sort 
+Java - MySQL - JDBC - OOP - SOLID - Design Pattren (DAO) - Graph - topological sort - Git
 
 # Features
 
