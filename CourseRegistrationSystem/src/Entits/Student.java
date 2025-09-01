@@ -3,10 +3,7 @@ package Entits;
 public class Student extends User {
     private String email;
     private double payment;
-    public Student() {
-    }
-
-
+    public Student() {}
     public Student(int id, String username, String password, String role, String email, double payment) {
         super(id, username, password, role);
         this.email = email;

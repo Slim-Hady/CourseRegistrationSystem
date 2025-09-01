@@ -2,62 +2,68 @@ package Entits;
 
 import Service.*;
 import Reposatory.*;
-import java.util.List;
+import java.util.Scanner;
 
 public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static AuthService authService = new AuthService();
+    private static StudentService studentService = new StudentService(new StudentRepository());
+    private static AdminService adminService = new AdminService();
+
     public static void main(String[] args) {
-        // Services
-        StudentService studentService = new StudentService(new StudentRepository());
-        CourseService courseService = new CourseService(new CourseRepository());
-        EnrollmentService enrollmentService = new EnrollmentService();
-
-        // ✅ طلاب جدد (ID مختلف كل مرة)
-        Student student1 = new Student();
-        student1.setID(30001);
-        student1.setUsername("omar");
-        student1.setPassword("omar123");
-        student1.setRole("student");
-        student1.setEmail("omar@example.com");
-        student1.setPayment(1000.0);
-        studentService.addStudent(student1);
-
-        Student student2 = new Student();
-        student2.setID(30002);
-        student2.setUsername("sara");
-        student2.setPassword("sara123");
-        student2.setRole("student");
-        student2.setEmail("sara@example.com");
-        student2.setPayment(1500.0);
-        studentService.addStudent(student2);
-
-        // ✅ كورسات جديدة
-        Course course1 = new Course(201, "Machine Learning", "Dr. Ali", 3, java.sql.Date.valueOf("2025-10-01"));
-        Course course2 = new Course(202, "Operating Systems", "Dr. Mona", 4, java.sql.Date.valueOf("2025-10-05"));
-        courseService.addCourse(course1);
-        courseService.addCourse(course2);
-
-        // ✅ Enrollments جديدة
-        enrollmentService.enrollStudentInCourse(new Enrollment(30001, 201, true));
-        enrollmentService.enrollStudentInCourse(new Enrollment(30001, 202, true));
-        enrollmentService.enrollStudentInCourse(new Enrollment(30002, 201, false));
-
-        // ✅ عرض البيانات
-        System.out.println("\n--- Students ---");
-        List<Student> students = studentService.getAllStudents();
-        for (Student s : students) {
-            System.out.println(s);
+        System.out.println("Welcome to Course Registration System 🎓");
+        while (true) {
+            showMainMenu();
         }
+    }
 
-        System.out.println("\n--- Courses ---");
-        List<Course> courses = courseService.getAllCourses();
-        for (Course c : courses) {
-            System.out.println(c);
+    private static void showMainMenu() {
+        System.out.println("\n=== MAIN MENU ===");
+        System.out.println("1. Login");
+        System.out.println("2. Sign Up");
+        System.out.println("3. Exit");
+        System.out.print("Choose an option: ");
+
+        try {
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    handleLogin();
+                    break;
+                case 2:
+                    handleSignup();
+                    break;
+                case 3:
+                    System.out.println("Thank you for using Course Registration System!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid option! Please choose 1, 2, or 3.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number!");
         }
+    }
 
-        System.out.println("\n--- Enrollments ---");
-        List<Enrollment> enrollments = enrollmentService.getEnrollmentsByStudent(30001);
-        for (Enrollment e : enrollments) {
-            System.out.println("Student " + e.getStudentId() + " -> Course " + e.getCourseId() + " | Status: " + e.isStatus());
+    private static void handleLogin() {
+        User user = authService.login();
+        if (user != null) {
+            if ("admin".equals(user.getRole())) {
+                System.out.println("Logged in as Administrator");
+                adminService.showAdminMenu();
+            } else if ("student".equals(user.getRole())) {
+                System.out.println("Logged in as Student");
+                studentService.showStudentMenu(user.getID());
+            } else {
+                System.out.println("Unknown user role: " + user.getRole());
+            }
+        }
+    }
+
+    private static void handleSignup() {
+        boolean success = authService.signup();
+        if (success) {
+            System.out.println("You can now login with your new account!");
         }
     }
 }
