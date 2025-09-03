@@ -10,7 +10,7 @@ public class Course {
     private Date courseDate;
     private int hours;
     private String name;
-    private List<Integer> prerequisites; // New field for prerequisites
+    private List<Integer> prerequisites; 
 
     public Course() {
         this.prerequisites = new ArrayList<>();
