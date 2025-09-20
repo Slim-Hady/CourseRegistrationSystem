@@ -109,7 +109,6 @@ public class StudentService {
             return;
         }
 
-        // Now try to enroll
         try {
             Enrollment enrollment = new Enrollment(studentId, courseId, true);
             enrollmentRepo.enrollStudent(enrollment);
