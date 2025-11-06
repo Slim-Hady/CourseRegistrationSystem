@@ -54,8 +54,6 @@
     ├── mysql-connectojdbcr-j-9.4.0/
 
 
-# Use case diagrame : 
-<img width="723" height="768" alt="use case drawio" src="https://github.com/user-attachments/assets/1045ffc1-0a39-4e9d-9bd6-7ceb031ab0ec" />
 
 # EERD : 
 <img width="850" height="782" alt="EERD" src="https://github.com/user-attachments/assets/aa189e58-635e-41aa-84ca-ddf71ebad119" />
